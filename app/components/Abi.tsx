@@ -344,6 +344,32 @@ const abi =[
 	},
 	{
 		"inputs": [],
+		"name": "getIsLoanFunded",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getIsLoanRepaid",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "getLenderBalance",
 		"outputs": [
 			{
@@ -395,6 +421,70 @@ const abi =[
 				"internalType": "address",
 				"name": "",
 				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "loans",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "loanAmount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "interestRate",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "totalRepayment",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "remainingRepayment",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "emiAmount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "emiCount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "emisPaid",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "nextEmiDueDate",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "isLoanFunded",
+				"type": "bool"
+			},
+			{
+				"internalType": "bool",
+				"name": "isLoanRepaid",
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",

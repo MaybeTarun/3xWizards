@@ -20,8 +20,8 @@ const Loan: React.FC = () => {
 
         if (contract) {
           try {
-            const loanRepaid: boolean = await contract.isLoanRepaid();
-            const loanFunded: boolean = await contract.isLoanFunded();
+            const loanRepaid: boolean = await contract.getIsLoanRepaid();
+            const loanFunded: boolean = await contract.getIsLoanFunded();
             setIsLoanRepaid(loanRepaid);
             setIsLoanFunded(loanFunded);
           } catch (error) {
