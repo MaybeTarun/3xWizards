@@ -21,17 +21,36 @@ export default function Home() {
         </div>
       </div>
       {/* home */}
-      <p className="h-fit w-full text-[#f0f0f0] pt-[10%] md:pt-[5%] text-center text-[2.5rem] md:text-[4.5rem] leading-[2.5rem] md:leading-[4.5rem] z-10">
+      <p className="h-fit w-full text-[#f0f0f0] pt-[10%] md:pt-[5%] text-center text-[2.4rem] md:text-[4.5rem] leading-[2.4rem] md:leading-[4.5rem] z-10">
         Your Go-To Platform<br/>for <span className="text-[#B488D9] z-10">Decentralized</span> Loans
       </p>
       <p className="h-fit w-full text-[#f0f0f0b0] text-center pt-1 md:pt-4 text-sm md:text-lg z-10">Unlock hassle-free, secure borrowing and embrace the<br/>future of lending in crypto with zkLend today.</p>
       <div className="flex gap-2 md:gap-4 items-center justify-center w-full h-fit py-2 md:py-4 z-10">
           <div className="cursor-pointer py-2 px-6 rounded-full text-[#0a0a0a] bg-[#f0f0f0] hover:bg-[#ffffff1c] hover:text-[#f0f0f0] text-sm md:text-base z-10"><Loan/></div>
           <div className="cursor-pointer border-[1px] py-2 px-6 rounded-full text-[#f0f0f0] bg-[#ffffff1c] border-[#ffffff20] hover:border-[#f0f0f0] text-sm md:text-base z-10">How It Works?</div>
+      </div>
+      <div className="w-full h-[40dvh] md:h-[30dvh] mt-12 md:mt-8 flex justify-center items-center z-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-[90%] h-full p-4 z-10">
+          <div className="flex flex-col justify-around border border-[#f0f0f020] rounded-2xl h-full p-4 shadow-inner shadow-[#f0f0f020] hover:bg-gradient-to-r hover:bg-[#B488D905] z-10">
+            <span className="text-[#f0f0f0] text-2xl md:text-5xl fontTulpen">5+</span>
+            <span className="text-[#f0f0f0b0] text-base md:text-2xl font-thin">Successful Loans Given</span>
+          </div>
+          <div className="flex flex-col justify-around border border-[#f0f0f020] rounded-2xl h-full p-4 shadow-inner shadow-[#f0f0f020] hover:bg-gradient-to-r hover:bg-[#B488D905] z-10">
+            <span className="text-[#f0f0f0] text-2xl md:text-5xl fontTulpen">10000+</span>
+            <span className="text-[#f0f0f0b0] text-base md:text-2xl font-thin">Money Loaned</span>
+          </div>
+          <div className="flex flex-col justify-around border border-[#f0f0f020] rounded-2xl h-full p-4 shadow-inner shadow-[#f0f0f020] hover:bg-gradient-to-r hover:bg-[#B488D905] z-10">
+            <span className="text-[#f0f0f0] text-2xl md:text-5xl fontTulpen">24/7</span>
+            <span className="text-[#f0f0f0b0] text-base md:text-2xl font-thin">Availability</span>
+          </div>
+          <div className="flex flex-col justify-around border border-[#f0f0f020] rounded-2xl h-full p-4 shadow-inner shadow-[#f0f0f020] hover:bg-gradient-to-r hover:bg-[#B488D905] z-10">
+            <span className="text-[#f0f0f0] text-2xl md:text-5xl fontTulpen">100%</span>
+            <span className="text-[#f0f0f0b0] text-base md:text-2xl font-thin">Decentralized and Safe</span>
+          </div>
         </div>
+      </div>
     </div>
-    <div className="w-dvw h-dvh bg-[#fff]">
-      hi
+    <div className="w-dvw h-dvh bg-[#0a0a0a]">
     </div>
     </>
   );

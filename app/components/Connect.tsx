@@ -171,7 +171,7 @@ useEffect(() => {
             ? `Connected: ${walletAddress.substring(0, 6)}...${walletAddress.substring(
                 walletAddress.length - 4
               )}`
-            : "Connect Walle"}
+            : "Connect Wallet"}
         </span>
       </button>
     
