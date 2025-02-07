@@ -1,5 +1,31 @@
 const abi =[
 	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_borrower",
+				"type": "address"
+			}
+		],
+		"name": "approveLoan",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_address",
+				"type": "address"
+			}
+		],
+		"name": "changeLender",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"stateMutability": "nonpayable",
 		"type": "constructor"
@@ -8,7 +34,33 @@ const abi =[
 		"anonymous": false,
 		"inputs": [
 			{
-				"indexed": false,
+				"indexed": true,
+				"internalType": "address",
+				"name": "borrower",
+				"type": "address"
+			}
+		],
+		"name": "BorrowerRemoved",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_penaltyRate",
+				"type": "uint256"
+			}
+		],
+		"name": "changePenaltyRate",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
 				"internalType": "address",
 				"name": "lender",
 				"type": "address"
@@ -27,189 +79,46 @@ const abi =[
 		"anonymous": false,
 		"inputs": [
 			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "loanId",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "propertyAddress",
-				"type": "string"
-			}
-		],
-		"name": "LoanCreated",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "loanId",
-				"type": "string"
-			}
-		],
-		"name": "LoanDeleted",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "loanId",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "propertyAddress",
-				"type": "string"
-			}
-		],
-		"name": "LoanUpdated",
-		"type": "event"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"name": "adjustableInterestRateDetailsMap",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "noteDate",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "city",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "state",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "propertyAddress",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "paymentLocation",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
+				"indexed": true,
 				"internalType": "address",
-				"name": "_address",
+				"name": "borrower",
 				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "emiAmount",
+				"type": "uint256"
 			}
 		],
-		"name": "changeLender",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
+		"name": "EMIPayment",
+		"type": "event"
 	},
 	{
 		"inputs": [],
-		"name": "checkBalanceOfSmartContract",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"name": "commonAndInterestDetailsMap",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "emiPaymentStartDate",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "principalAmount",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "fixedInterestRate",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "monthlyPaymentAmount",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "maturityDate",
-				"type": "string"
-			},
-			{
-				"internalType": "uint8",
-				"name": "emiPaymentDay",
-				"type": "uint8"
-			},
-			{
-				"internalType": "string",
-				"name": "interestRateChangeDate",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "lenderName",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "borrowerName",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "loanId",
-				"type": "string"
-			}
-		],
-		"name": "deleteLoan",
+		"name": "fullRepayment",
 		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "payable",
 		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "borrower",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "FullRepayment",
+		"type": "event"
 	},
 	{
 		"inputs": [],
@@ -219,13 +128,183 @@ const abi =[
 		"type": "function"
 	},
 	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "lender",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "LoanFunded",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "borrower",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "LoanRepaid",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "borrower",
+				"type": "address"
+			}
+		],
+		"name": "LoanRequestRejected",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "borrower",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "interestRate",
+				"type": "uint256"
+			}
+		],
+		"name": "LoanRequested",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "borrower",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "penaltyAmount",
+				"type": "uint256"
+			}
+		],
+		"name": "PenaltyApplied",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "lender",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "panaltyRate",
+				"type": "uint256"
+			}
+		],
+		"name": "panaltyRatechanged",
+		"type": "event"
+	},
+	{
 		"inputs": [],
-		"name": "getAllLoanIds",
+		"name": "payEMI",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_loanAmount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_interestRate",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_repaymentDurationInMonths",
+				"type": "uint256"
+			}
+		],
+		"name": "requestLoan",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_amount",
+				"type": "uint256"
+			}
+		],
+		"name": "takeOutContractFunds",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getActiveBorrowers",
 		"outputs": [
 			{
-				"internalType": "string[]",
+				"internalType": "address[]",
 				"name": "",
-				"type": "string[]"
+				"type": "address[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getBalanceOfSmartContract",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -252,6 +331,19 @@ const abi =[
 	},
 	{
 		"inputs": [],
+		"name": "getBorrowerCount",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "getLenderBalance",
 		"outputs": [
 			{
@@ -264,145 +356,32 @@ const abi =[
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "loanId",
-				"type": "string"
-			}
-		],
-		"name": "getLoanDetails",
+		"inputs": [],
+		"name": "getRequestedBorrowers",
 		"outputs": [
 			{
-				"components": [
-					{
-						"internalType": "string",
-						"name": "emiPaymentStartDate",
-						"type": "string"
-					},
-					{
-						"internalType": "uint256",
-						"name": "principalAmount",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "fixedInterestRate",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "monthlyPaymentAmount",
-						"type": "uint256"
-					},
-					{
-						"internalType": "string",
-						"name": "maturityDate",
-						"type": "string"
-					},
-					{
-						"internalType": "uint8",
-						"name": "emiPaymentDay",
-						"type": "uint8"
-					},
-					{
-						"internalType": "string",
-						"name": "interestRateChangeDate",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "lenderName",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "borrowerName",
-						"type": "string"
-					}
-				],
-				"internalType": "struct LoanAgreementContract.CommonAndInterestDetails",
+				"internalType": "address[]",
 				"name": "",
-				"type": "tuple"
-			},
+				"type": "address[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
 			{
-				"components": [
-					{
-						"internalType": "uint8",
-						"name": "latePaymentGracePeriod",
-						"type": "uint8"
-					},
-					{
-						"internalType": "uint256",
-						"name": "lateChargePercentage",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "margin",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "currentIndex",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "maxInterestRateAtFirstChange",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "minInterestRateAtFirstChange",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "maxInterestRateAfterChange",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "minInterestRateAfterChange",
-						"type": "uint256"
-					}
-				],
-				"internalType": "struct LoanAgreementContract.PaymentAndLateDetails",
-				"name": "",
-				"type": "tuple"
-			},
+				"internalType": "address",
+				"name": "_borrower",
+				"type": "address"
+			}
+		],
+		"name": "isRepaymentOverdue",
+		"outputs": [
 			{
-				"components": [
-					{
-						"internalType": "string",
-						"name": "noteDate",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "city",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "state",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "propertyAddress",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "paymentLocation",
-						"type": "string"
-					}
-				],
-				"internalType": "struct LoanAgreementContract.AdjustableInterestRateDetails",
+				"internalType": "bool",
 				"name": "",
-				"type": "tuple"
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -422,219 +401,16 @@ const abi =[
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"name": "paymentAndLateDetailsMap",
+		"inputs": [],
+		"name": "penaltyRate",
 		"outputs": [
 			{
-				"internalType": "uint8",
-				"name": "latePaymentGracePeriod",
-				"type": "uint8"
-			},
-			{
 				"internalType": "uint256",
-				"name": "lateChargePercentage",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "margin",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "currentIndex",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "maxInterestRateAtFirstChange",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "minInterestRateAtFirstChange",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "maxInterestRateAfterChange",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "minInterestRateAfterChange",
+				"name": "",
 				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "loanId",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_noteDate",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_city",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_state",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_propertyAddress",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_paymentLocation",
-				"type": "string"
-			}
-		],
-		"name": "setAdjustableInterestRateDetails",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "loanId",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_emiPaymentStartDate",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_principalAmount",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_fixedInterestRate",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_monthlyPaymentAmount",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "_maturityDate",
-				"type": "string"
-			},
-			{
-				"internalType": "uint8",
-				"name": "_emiPaymentDay",
-				"type": "uint8"
-			},
-			{
-				"internalType": "string",
-				"name": "_interestRateChangeDate",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_lenderName",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_borrowerName",
-				"type": "string"
-			}
-		],
-		"name": "setCommonAndInterestDetails",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "loanId",
-				"type": "string"
-			},
-			{
-				"internalType": "uint8",
-				"name": "_latePaymentGracePeriod",
-				"type": "uint8"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_lateChargePercentage",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_margin",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_currentIndex",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_maxInterestRateAtFirstChange",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_minInterestRateAtFirstChange",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_maxInterestRateAfterChange",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_minInterestRateAfterChange",
-				"type": "uint256"
-			}
-		],
-		"name": "setPaymentAndLateDetails",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_amount",
-				"type": "uint256"
-			}
-		],
-		"name": "takeOutContractFunds",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	}
 ];

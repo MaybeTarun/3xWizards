@@ -41,7 +41,7 @@ const Connect: React.FC = () => {
         // "0xc7eb376547bfcb6a35d82d40b02909db5406d498",
         // "0x066f47360150103110decf6afc08a7da643cfa88",
         const contractInstance = new ethers.Contract(
-          "0x5b2a6640153D1df9b6a8bB37E9B07EBa9F06b637",
+          "0xe8bc06e0a368bea8e7f8012e9e7232e529b36ad0",
           ABI,
           signer
         );
@@ -145,11 +145,6 @@ useEffect(() => {
     if (typeof window !== "undefined" && window.ethereum && contract) {
       try {
         const owner: string = await contract.lender();
-        const isLoanRepaid: boolean = await contract.isLoanRepaid();
-        const isLoanFunded: boolean = await contract.isLoanFunded();
-        
-        setIsLoanRepaid(isLoanRepaid);
-        setisLoanFunded(isLoanFunded);
         localStorage.setItem("owner", owner);
       } catch (error) {
         console.error("Error fetching contract data:", error);
@@ -166,26 +161,7 @@ useEffect(() => {
     addWalletListener();
   }, [getCurrentWalletConnected, addWalletListener]);
 
-  // routes for Take loan and repay loan
-  // const handleTakeLoan = (e: React.MouseEvent<HTMLButtonElement>): void => {
-  //   e.preventDefault();
-  //   if (walletAddress) {
-  //     const owner = localStorage.getItem('admin');
 
-  //     if(walletAddress.toLowerCase()!=owner?.toLowerCase()){
-  //       router.push("/LoanForm");
-  //     }else{toast.warn("Admin can't take loan");}
-  //   } else {
-  //     toast.error("Please connect your wallet first.");
-  //   }
-  // };
-  // function handleRepayLoan(){
-  //   if(walletAddress){
-  //     router.push("/RepayLoan");
-  //   }else{
-  //     toast.error("Please connect your wallet first.")
-  //   }
-  // }
 
   return (
     <div className="w-full h-[25vh] flex flex-col justify-evenly items-center gap-4 p-4 sm:h-[25vh] sm:gap-6 md:h-[35vh] md:gap-8 lg:p-8">
@@ -201,27 +177,6 @@ useEffect(() => {
             : "Connect Wallet 🦊"}
         </span>
       </ShimmerButton>
-
-{/* we are setting up which button would should is it pay loan or get loan */}
-      {/* {isLoanFunded &&!isLoanRepaid?
-      <ShimmerButton
-        onClick={handleRepayLoan}
-        className="w-full max-w-[250px] py-2 border-sky-700 shadow-2xl hover:bg-green-700 sm:py-3 md:py-4"
-      >
-        <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white lg:text-base xl:text-lg">
-          Repay Loan
-        </span>
-      </ShimmerButton>
-      :
-      <ShimmerButton
-        onClick={handleTakeLoan}
-        className="w-full max-w-[250px] py-2 border-sky-700 shadow-2xl hover:bg-green-700 sm:py-3 md:py-4"
-      >
-        <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white lg:text-base xl:text-lg">
-          Take Loan
-        </span>
-      </ShimmerButton>
-    } */}
     
       <ToastContainer />
     </div>
