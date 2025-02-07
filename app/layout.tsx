@@ -26,10 +26,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon.png" />
+      </head>
       <body
         className={`${geistSans.variable} bg-black ${geistMono.variable} antialiased`}
       >
-<MyContextProvider>{children}</MyContextProvider>      </body>
+        <MyContextProvider>{children}</MyContextProvider>
+      </body>
     </html>
   );
 }
