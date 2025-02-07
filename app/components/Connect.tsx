@@ -167,25 +167,25 @@ useEffect(() => {
   }, [getCurrentWalletConnected, addWalletListener]);
 
   // routes for Take loan and repay loan
-  const handleTakeLoan = (e: React.MouseEvent<HTMLButtonElement>): void => {
-    e.preventDefault();
-    if (walletAddress) {
-      const owner = localStorage.getItem('admin');
+  // const handleTakeLoan = (e: React.MouseEvent<HTMLButtonElement>): void => {
+  //   e.preventDefault();
+  //   if (walletAddress) {
+  //     const owner = localStorage.getItem('admin');
 
-      if(walletAddress.toLowerCase()!=owner?.toLowerCase()){
-        router.push("/LoanForm");
-      }else{toast.warn("Admin can't take loan");}
-    } else {
-      toast.error("Please connect your wallet first.");
-    }
-  };
-  function handleRepayLoan(){
-    if(walletAddress){
-      router.push("/RepayLoan");
-    }else{
-      toast.error("Please connect your wallet first.")
-    }
-  }
+  //     if(walletAddress.toLowerCase()!=owner?.toLowerCase()){
+  //       router.push("/LoanForm");
+  //     }else{toast.warn("Admin can't take loan");}
+  //   } else {
+  //     toast.error("Please connect your wallet first.");
+  //   }
+  // };
+  // function handleRepayLoan(){
+  //   if(walletAddress){
+  //     router.push("/RepayLoan");
+  //   }else{
+  //     toast.error("Please connect your wallet first.")
+  //   }
+  // }
 
   return (
     <div className="w-full h-[25vh] flex flex-col justify-evenly items-center gap-4 p-4 sm:h-[25vh] sm:gap-6 md:h-[35vh] md:gap-8 lg:p-8">
@@ -203,7 +203,7 @@ useEffect(() => {
       </ShimmerButton>
 
 {/* we are setting up which button would should is it pay loan or get loan */}
-      {isLoanFunded &&!isLoanRepaid?
+      {/* {isLoanFunded &&!isLoanRepaid?
       <ShimmerButton
         onClick={handleRepayLoan}
         className="w-full max-w-[250px] py-2 border-sky-700 shadow-2xl hover:bg-green-700 sm:py-3 md:py-4"
@@ -221,7 +221,7 @@ useEffect(() => {
           Take Loan
         </span>
       </ShimmerButton>
-    }
+    } */}
     
       <ToastContainer />
     </div>
