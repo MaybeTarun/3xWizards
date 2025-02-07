@@ -41,7 +41,7 @@ const Connect: React.FC = () => {
         // "0xc7eb376547bfcb6a35d82d40b02909db5406d498",
         // "0x066f47360150103110decf6afc08a7da643cfa88",
         const contractInstance = new ethers.Contract(
-          "0xe8bc06e0a368bea8e7f8012e9e7232e529b36ad0",
+          "0xb465e11a1486cf10a9adda1495eb928b6e520ee9",
           ABI,
           signer
         );
