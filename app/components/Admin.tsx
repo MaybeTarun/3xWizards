@@ -28,7 +28,7 @@ const Admin = () => {
     
   return (
     <button onClick={handleTakeLoan}>
-      Admin Login
+      Admin
     </button>
   );
 };

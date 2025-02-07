@@ -1,8 +1,6 @@
 "use client";
 import React, { useState, useContext } from "react";
-import ShimmerButton from "@/components/ui/shimmer-button";
 import { MyContext } from "@/app/context/MyContext";
-import TypingAnimation from "@/components/ui/typing-animation";
 import { ToastContainer, toast } from "react-toastify";
 
 const Page: React.FC = () => {
@@ -14,7 +12,7 @@ const Page: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [loanAmount, setLoanAmount] = useState<string>("");
   const [duration, setDuration] = useState<string>("");
-  const [interestRate, setInterestRate] = useState<string>("");
+  const [interestRate, setInterestRate] = useState<string>("5");
 
   const countries: string[] = ["United States", "India", "Canada", "Australia"];
   const states: Record<string, string[]> = {
@@ -40,7 +38,6 @@ const Page: React.FC = () => {
       email,
       loanAmount,
       duration,
-      interestRate,
     });
 
     if (contract) {
@@ -52,8 +49,7 @@ const Page: React.FC = () => {
           !name ||
           !email ||
           !loanAmount ||
-          !duration ||
-          !interestRate
+          !duration
         ) {
           alert("Please fill all the fields.");
           return;
@@ -94,23 +90,38 @@ const Page: React.FC = () => {
     }
   };
 
+  const handleGoHome = () => {
+    window.location.href = "/"; // Redirect to homepage
+  };
+
   return (
-    <div className="flex w-full text-white flex-col items-center bg-black p-5 sm:p-10">
+    <div className="flex w-full flex-col items-center bg-[#0a0a0a] p-5 sm:p-10">
+      {/* Cross Button */}
+      <button
+        onClick={handleGoHome}
+        className="absolute top-5 right-5 text-white text-2xl"
+        aria-label="Close"
+      >
+        &times; {/* Cross icon */}
+      </button>
       {/* Header */}
-      <TypingAnimation className="font-bold font-serif text-center sm:text-4xl mb-10">
-        Fill Below Credentials to Get Loan
-      </TypingAnimation>
+      <h1 className="text-center text-xl md:text-2xl font-bold text-[#f0f0f0] mb-5">
+        Fill in the following to apply for a loan
+      </h1>
 
       {/* Form Container */}
-      <div className="flex w-full max-w-4xl flex-col shadow-cust bg-black rounded-lg items-center border-2 border-black p-5 sm:p-10 mb-10">
-        <form className="flex flex-col w-[70%] items-center text-black gap-5 sm:gap-8">
+      <div className="flex w-full max-w-md flex-col bg-neutral-900 rounded-lg p-5 shadow-md">
+        <form className="flex flex-col gap-4">
           {/* Country Dropdown */}
+          <label htmlFor="country" className="text-sm font-medium text-[#f0f0f0]">
+            Country
+          </label>
           <select
             id="country"
             name="country"
             value={selectedCountry}
             onChange={handleCountryChange}
-            className="px-4 py-2 border-2 text-black border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 w-full"
+            className="px-4 py-2 border border-neutral-600 rounded-lg focus:outline-none bg-neutral-700 text-[#f0f0f0]"
           >
             <option value="" disabled>
               Choose your country
@@ -123,84 +134,99 @@ const Page: React.FC = () => {
           </select>
 
           {/* State Dropdown */}
+          <label htmlFor="state" className="text-sm font-medium text-[#f0f0f0]">
+            State
+          </label>
           <select
             id="state"
+            name="state"
             value={selectedState}
             onChange={(e) => setSelectedState(e.target.value)}
-            disabled={!selectedCountry}
-            className={`px-4 py-2 border-2 ${
-              selectedCountry
-                ? "border-gray-300"
-                : "border-gray-200 bg-gray-100 cursor-not-allowed"
-            } rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+            className="px-4 py-2 border border-neutral-600 rounded-lg focus:outline-none bg-neutral-700 text-[#f0f0f0]"
+            disabled={!selectedCountry} // Disable until a country is selected
           >
             <option value="" disabled>
-              {selectedCountry ? "Choose a state" : "Select a country first"}
+              Choose your state
             </option>
-            {selectedCountry &&
-              states[selectedCountry]?.map((state) => (
-                <option key={state} value={state}>
-                  {state}
-                </option>
-              ))}
+            {selectedCountry && states[selectedCountry].map((state, index) => (
+              <option key={index} value={state}>
+                {state}
+              </option>
+            ))}
           </select>
 
           {/* Name Input */}
+          <label htmlFor="name" className="text-sm font-medium text-[#f0f0f0]">
+            Name
+          </label>
           <input
             type="text"
-            placeholder="Name"
+            id="name"
+            placeholder="Enter your name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="px-4 py-2 border-2 border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-sky-500"
+            className="px-4 py-2 border border-neutral-600 rounded-lg focus:outline-none bg-neutral-700 text-[#f0f0f0]"
           />
 
           {/* Email Input */}
+          <label htmlFor="email" className="text-sm font-medium text-[#f0f0f0]">
+            Email
+          </label>
           <input
             type="email"
+            id="email"
             placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="px-4 py-2 border-2 border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-sky-500"
+            className="px-4 py-2 border border-neutral-600 rounded-lg focus:outline-none bg-neutral-700 text-[#f0f0f0]"
           />
 
           {/* Loan Amount Input */}
+          <label htmlFor="loanAmount" className="text-sm font-medium text-[#f0f0f0]">
+            Loan Amount (in Wei)
+          </label>
           <input
             type="number"
-            placeholder="Loan Amount (in Wei)"
+            id="loanAmount"
+            placeholder="Enter loan amount"
             value={loanAmount}
             onChange={(e) => setLoanAmount(e.target.value)}
-            className="px-4 py-2 border-2 border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-sky-500"
+            className="px-4 py-2 border border-neutral-600 rounded-lg focus:outline-none bg-neutral-700 text-[#f0f0f0]"
           />
 
           {/* Duration Input */}
+          <label htmlFor="duration" className="text-sm font-medium text-[#f0f0f0]">
+            Duration (in months)
+          </label>
           <input
             type="number"
-            placeholder="Duration (in months)"
+            id="duration"
+            placeholder="Enter duration"
             value={duration}
             onChange={(e) => setDuration(e.target.value)}
-            className="px-4 py-2 border-2 border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-sky-500"
+            className="px-4 py-2 border border-neutral-600 rounded-lg focus:outline-none bg-neutral-700 text-[#f0f0f0]"
           />
 
-          {/* Interest Rate Input */}
+          {/* Fixed Interest Rate Display */}
+          <label className="text-sm font-medium text-[#f0f0f0]">
+            Fixed Interest Rate
+          </label>
           <input
-            type="number"
-            placeholder="Interest Rate (%)"
-            value={interestRate}
-            onChange={(e) => setInterestRate(e.target.value)}
-            className="px-4 py-2 border-2 border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-sky-500"
+            type="text"
+            value="5%"
+            readOnly
+            className="px-4 py-2 border border-neutral-600 rounded-lg bg-neutral-600 cursor-not-allowed text-[#f0f0f0]"
           />
 
-          <ShimmerButton
+          <button
             onClick={handleSubmit}
-            className="w-full shadow-2xl max-w-[250px] py-2 border-sky-700 hover:bg-green-700 sm:py-3 md:py-4"
+            className="mt-4 w-full py-2 bg-blue-600 text-[#f0f0f0] rounded-lg hover:bg-blue-700"
           >
-            <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white lg:text-base xl:text-lg">
-              Submit
-            </span>
-          </ShimmerButton>
+            Apply
+          </button>
         </form>
       </div>
-      <ToastContainer/>
+      <ToastContainer />
     </div>
   );
 };

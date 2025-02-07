@@ -1,8 +1,9 @@
+"use client";
+
 import React, { useContext, useEffect, useState, useCallback } from "react";
 import { MyContext } from "@/app/context/MyContext";
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import ShimmerButton from "@/components/ui/shimmer-button";
 
 const Loan: React.FC = () => {
   const router = useRouter();
@@ -61,23 +62,9 @@ const Loan: React.FC = () => {
   return (
     <>
       {isLoanFunded && !isLoanRepaid ? (
-        <ShimmerButton
-          onClick={handleRepayLoan}
-          className="w-full max-w-[250px] py-2 border-sky-700 shadow-2xl hover:bg-green-700 sm:py-3 md:py-4"
-        >
-          <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white lg:text-base xl:text-lg">
-            Repay Loan
-          </span>
-        </ShimmerButton>
+        <button onClick={handleRepayLoan}>Repay Loan</button>
       ) : (
-        <ShimmerButton
-          onClick={handleTakeLoan}
-          className="w-full max-w-[250px] py-2 border-sky-700 shadow-2xl hover:bg-green-700 sm:py-3 md:py-4"
-        >
-          <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white lg:text-base xl:text-lg">
-            Take Loan
-          </span>
-        </ShimmerButton>
+        <button onClick={handleTakeLoan}>Take Loan</button>
       )}
     </>
   );
