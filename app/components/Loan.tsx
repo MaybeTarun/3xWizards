@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useEffect, useState, useCallback } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MyContext } from "@/app/context/MyContext";
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/navigation";
@@ -11,13 +11,14 @@ const Loan: React.FC = () => {
 
   const [isLoanRepaid, setIsLoanRepaid] = useState<boolean | null>(null);
   const [isLoanFunded, setIsLoanFunded] = useState<boolean | null>(null);
-  const [owner, setOwner] = useState<string | null | undefined>(null);
+  const [owner, setOwner] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       if (typeof window !== "undefined") {
         const ownerFromLocalStorage: string | null = localStorage.getItem("admin");
         setOwner(ownerFromLocalStorage);
+        console.log(owner);
 
         if (contract) {
           try {
