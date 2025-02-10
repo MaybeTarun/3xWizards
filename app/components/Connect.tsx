@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import ShimmerButton from "@/components/ui/shimmer-button";
+// import ShimmerButton from "@/components/ui/shimmer-button";
 import { ToastContainer, toast } from "react-toastify";
 import React, { useContext, useEffect, useState, useCallback } from "react";
 import { ethers } from "ethers";
@@ -20,8 +20,8 @@ const Connect: React.FC = () => {
   const { contract,setContract, walletAddress, setWalletAddress } =
     useContext(MyContext);
 
-  const [isLoanRepaid, setIsLoanRepaid] = useState<boolean>();
-  const [isLoanFunded, setisLoanFunded] = useState<boolean>();
+  const [isLoanRepaid, setIsLoanRepaid] = useState<boolean | undefined>();
+  const [isLoanFunded, setisLoanFunded] = useState<boolean | undefined>();
 
   const connectminewallet = useCallback(async (): Promise<void> => {
     try {

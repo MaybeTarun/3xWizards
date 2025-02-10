@@ -11,7 +11,7 @@ const Loan: React.FC = () => {
 
   const [isLoanRepaid, setIsLoanRepaid] = useState<boolean | null>(null);
   const [isLoanFunded, setIsLoanFunded] = useState<boolean | null>(null);
-  const [owner, setOwner] = useState<string | null>(null);
+  const [owner, setOwner] = useState<string | null | undefined>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -66,6 +66,8 @@ const Loan: React.FC = () => {
       ) : (
         <button onClick={handleTakeLoan}>Take Loan</button>
       )}
+      
+      <ToastContainer />
     </>
   );
 };
