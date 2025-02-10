@@ -164,22 +164,19 @@ useEffect(() => {
 
 
   return (
-    <div className="w-full h-[25vh] flex flex-col justify-evenly items-center gap-4 p-4 sm:h-[25vh] sm:gap-6 md:h-[35vh] md:gap-8 lg:p-8">
-      <ShimmerButton
-        onClick={connectWallet}
-        className="w-full shadow-custom max-w-[250px] py-2 hover:bg-blue-700 sm:py-3 md:py-4"
-      >
-        <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight hover:text-sky-700 text-white lg:text-base xl:text-lg">
+    <>
+      <button onClick={connectWallet}>
+        <span>
           {walletAddress && walletAddress.length > 0
             ? `Connected: ${walletAddress.substring(0, 6)}...${walletAddress.substring(
                 walletAddress.length - 4
               )}`
-            : "Connect Wallet 🦊"}
+            : "Connect Wallet"}
         </span>
-      </ShimmerButton>
+      </button>
     
       <ToastContainer />
-    </div>
+    </>
   );
 };
 
