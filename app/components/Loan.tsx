@@ -28,7 +28,7 @@ const Loan: React.FC = () => {
             setIsLoanFunded(loanFunded);
           } catch (error) {
             console.error("Error fetching loan status:", error);
-            toast.error("Failed to fetch loan status.");
+            // toast.error("Failed to fetch loan status.");
           }
         }
       }

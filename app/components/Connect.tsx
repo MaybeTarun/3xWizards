@@ -3,7 +3,7 @@
 // import { useRouter } from "next/navigation";
 // import ShimmerButton from "@/components/ui/shimmer-button";
 import { ToastContainer, toast } from "react-toastify";
-import React, { useContext, useEffect, useState, useCallback } from "react";
+import React, { useContext, useEffect, useCallback } from "react";
 import { ethers } from "ethers";
 import ABI from "@/app/components/Abi"; // Adjust the path to your ABI file
 import { MyContext } from "@/app/context/MyContext";
