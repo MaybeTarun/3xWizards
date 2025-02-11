@@ -1,7 +1,5 @@
 'use client'
 import React, { useContext, useState, useEffect } from 'react';
-import TypingAnimation from "@/components/ui/typing-animation";
-import ShimmerButton from "@/components/ui/shimmer-button";
 import { MyContext } from "@/app/context/MyContext";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -48,30 +46,42 @@ const Page: React.FC = () => {
     }
   };
 
+  const handleGoHome = () => {
+    window.location.href = "/"; // Redirect to homepage or desired route
+  };
+
   return (
-    <div className="min-h-screen w-full flex flex-col items-center">
-      <div className="text-white min-h-[80vh] w-[70%] shadow-cust mt-12 p-5 flex flex-col items-center justify-evenly">
-        <TypingAnimation className="font-bold font-serif text-green-300 text-center sm:text-4xl mb-10">
-          Welcome - Repay Your Loan
-        </TypingAnimation>
+    <div className="flex w-full flex-col items-center bg-[#0a0a0a] p-5 sm:p-10 min-h-screen relative">
+      {/* Cross Button positioned at the top right of the screen */}
+      <button
+        onClick={handleGoHome}
+        className="absolute top-5 right-5 text-[#f0f0f0] text-2xl"
+        aria-label="Close"
+      >
+        &times; {/* Cross icon */}
+      </button>
+      <h1 className="font-bold font-serif text-[#f0f0f0] text-xl md:text-2xl mb-10">
+        Loan Repayment Form
+      </h1>
+      <div className="text-[#f0f0f0] w-full max-w-md flex flex-col bg-neutral-900 rounded-lg p-5 shadow-md items-center">
         <ul className="font-serif text-2xl text-center">
           <li>Borrower Address</li>
-          <p>{walletAddress || "N/A"}</p>
+          <p className="text-lg text-[#f0f0f0a4]">{walletAddress || "N/A"}</p>
           <li>Loan Amount</li>
-          <p>{loanAmount ? Number(loanAmount) : "N/A"}</p>
+          <p className="text-lg text-[#f0f0f0a4]">{loanAmount ? Number(loanAmount) : "N/A"}</p>
           <li>Interest Rate (%)</li>
-          <p>{interestRate ? Number(interestRate) : "N/A"}</p>
+          <p className="text-lg text-[#f0f0f0a4]">{interestRate ? Number(interestRate) : "N/A"}</p>
           <li>Total Repayment</li>
-          <p>{totalRepayment ? Number(totalRepayment) : "N/A"}</p>
+          <p className="text-lg text-[#f0f0f0a4]">{totalRepayment ? Number(totalRepayment) : "N/A"}</p>
         </ul>
-        <ShimmerButton
+        <button
           onClick={repayLoanFunc}
-          className="w-full max-w-[250px] py-2 border-sky-700 shadow-2xl hover:bg-green-700 sm:py-3 md:py-4"
+          className="mt-4 w-full max-w-[250px] py-2 bg-blue-600 text-[#f0f0f0] rounded-lg hover:bg-blue-700"
         >
-          <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white lg:text-base xl:text-lg">
+          <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-[#f0f0f0] lg:text-base xl:text-lg">
             Repay Loan
           </span>
-        </ShimmerButton>
+        </button>
       </div>
       <ToastContainer />
     </div>

@@ -6,13 +6,12 @@ import { ToastContainer, toast } from "react-toastify";
 const Page: React.FC = () => {
   const { contract } = useContext(MyContext);
 
-  const [selectedCountry, setSelectedCountry] = useState<string>("");
-  const [selectedState, setSelectedState] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [loanAmount, setLoanAmount] = useState<string>("");
   const [duration, setDuration] = useState<string>("");
   const [interestRate, setInterestRate] = useState<string>("5");
+  const [age, setAge] = useState<string>("");
 
   const countries: string[] = ["United States", "India", "Canada", "Australia"];
   const states: Record<string, string[]> = {
@@ -22,35 +21,22 @@ const Page: React.FC = () => {
     Australia: ["New South Wales", "Victoria", "Queensland", "Tasmania"],
   };
 
-  const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedCountry(event.target.value);
-    setSelectedState(""); // Reset state when country changes
-  };
-
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     // Logging form data for debugging
     console.log({
-      country: selectedCountry,
-      state: selectedState,
       name,
       email,
       loanAmount,
       duration,
+      age,
     });
 
     if (contract) {
       try {
         // Validation for empty fields
-        if (
-          !selectedCountry ||
-          !selectedState ||
-          !name ||
-          !email ||
-          !loanAmount ||
-          !duration
-        ) {
+        if (!name || !email || !loanAmount || !duration || !age) {
           alert("Please fill all the fields.");
           return;
         }
@@ -67,12 +53,11 @@ const Page: React.FC = () => {
         await tx.wait();
 
         // Reset form state
-        setSelectedCountry("");
-        setSelectedState("");
         setName("");
         setEmail("");
         setLoanAmount("");
         setDuration("");
+        setAge("");
         setInterestRate("");
         toast.success("Loan request submitted successfully!");
       } catch (error) {
@@ -112,49 +97,6 @@ const Page: React.FC = () => {
       {/* Form Container */}
       <div className="flex w-full max-w-md flex-col bg-neutral-900 rounded-lg p-5 shadow-md">
         <form className="flex flex-col gap-4">
-          {/* Country Dropdown */}
-          <label htmlFor="country" className="text-sm font-medium text-[#f0f0f0]">
-            Country
-          </label>
-          <select
-            id="country"
-            name="country"
-            value={selectedCountry}
-            onChange={handleCountryChange}
-            className="px-4 py-2 border border-neutral-600 rounded-lg focus:outline-none bg-neutral-700 text-[#f0f0f0]"
-          >
-            <option value="" disabled>
-              Choose your country
-            </option>
-            {countries.map((country, index) => (
-              <option key={index} value={country}>
-                {country}
-              </option>
-            ))}
-          </select>
-
-          {/* State Dropdown */}
-          <label htmlFor="state" className="text-sm font-medium text-[#f0f0f0]">
-            State
-          </label>
-          <select
-            id="state"
-            name="state"
-            value={selectedState}
-            onChange={(e) => setSelectedState(e.target.value)}
-            className="px-4 py-2 border border-neutral-600 rounded-lg focus:outline-none bg-neutral-700 text-[#f0f0f0]"
-            disabled={!selectedCountry} // Disable until a country is selected
-          >
-            <option value="" disabled>
-              Choose your state
-            </option>
-            {selectedCountry && states[selectedCountry].map((state, index) => (
-              <option key={index} value={state}>
-                {state}
-              </option>
-            ))}
-          </select>
-
           {/* Name Input */}
           <label htmlFor="name" className="text-sm font-medium text-[#f0f0f0]">
             Name
@@ -204,6 +146,19 @@ const Page: React.FC = () => {
             placeholder="Enter duration"
             value={duration}
             onChange={(e) => setDuration(e.target.value)}
+            className="px-4 py-2 border border-neutral-600 rounded-lg focus:outline-none bg-neutral-700 text-[#f0f0f0]"
+          />
+
+          {/* Age Input */}
+          <label htmlFor="age" className="text-sm font-medium text-[#f0f0f0]">
+            Age
+          </label>
+          <input
+            type="number"
+            id="age"
+            placeholder="Enter your age"
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
             className="px-4 py-2 border border-neutral-600 rounded-lg focus:outline-none bg-neutral-700 text-[#f0f0f0]"
           />
 
