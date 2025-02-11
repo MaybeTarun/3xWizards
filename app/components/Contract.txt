@@ -12,7 +12,7 @@ contract MultiLoanContract {
     //----------This is the containor for the Loan taken by the borrower -----
     struct Loan {
         uint256 loanAmount;
-        uint256 interestRate; // Interest rate in percentage
+        uint256 interestRate;
         uint256 totalRepayment;
         uint256 remainingRepayment;
         uint256 emiAmount;
@@ -21,43 +21,9 @@ contract MultiLoanContract {
         uint256 nextEmiDueDate;
         bool isLoanFunded;
         bool isLoanRepaid;
+        uint256 age; // Added age field
     }
     mapping(address => Loan) public loans; //Like dictionary-- storing data with key as MatamaskId & value as UserLoan Details
-
-    //Below 2 Struct another containor for Lender to store information of his past borrower's transection
-    // Struct for Payment Details and Related Information
-    struct PaymentDetails {
-        uint256 initialMonthlyPayment;
-        string firstPaymentDate;
-        string maturityDate;
-        string paymentAddress;
-        uint256 gracePeriod; // Late charges (in days)
-        uint256 lateChargePercentage; // Late charge percentage in basis points
-        string index; // Adjustable rate index (e.g., "30-day Average SOFR Index")
-        uint256 margin; // Adjustable rate margin in basis points
-        bool allowsPrepayment; // Borrower rights for prepayment
-        uint256 defaultNoticePeriod; // Default notice period in days
-    }
-
-    // Struct for General and Loan Details
-    struct GeneralDetails {
-        string noteDate;
-        string city;
-        string state;
-        string propertyAddress;
-        uint256 principalAmount; // Loan principal
-        string lenderName;
-        uint256 initialInterestRate; // Initial interest rate in basis points
-        string changeDate; // Change date for interest rate adjustment
-        uint256 maxRateOnFirstChange; // Max interest rate after first change (basis points)
-        uint256 minRateOnFirstChange; // Min interest rate after first change (basis points)
-        // uint256 maxOverallRate; // Max overall interest rate (basis points)
-        // uint256 minOverallRate; // Min overall interest rate (basis points)
-    }
-
-    // Mappings for each struct
-    mapping(uint256 => PaymentDetails) public paymentDetailsMap;
-    mapping(uint256 => GeneralDetails) public generalDetailsMap;
 
     // Events
     event LoanFunded(address indexed lender, uint256 amount);
@@ -74,8 +40,6 @@ contract MultiLoanContract {
     event FullRepayment(address indexed borrower, uint256 amount);
     event PenaltyApplied(address indexed borrower, uint256 penaltyAmount);
     event panaltyRatechanged(address indexed lender, uint256 panaltyRate);
-    event PaymentDetailsUpdated(uint256 loanId);
-    event GeneralDetailsUpdated(uint256 loanId);
 
     // Modifiers
     modifier onlyLender() {
@@ -92,92 +56,15 @@ contract MultiLoanContract {
     }
 
     // Constructor
-    constructor(uint256 _penaltyRate) {
+    constructor() {
         lender = msg.sender; // Deployer is the lender
         borrowerCount = 0;
-        penaltyRate = _penaltyRate; // Initialize penalty rate
+        penaltyRate = 2; // Initialize penalty rate
     }
 
     // Function: Change lender
     function changeLender(address _address) external onlyLender {
         lender = _address;
-    }
-
-    // Function to store Payment Details
-    function setPaymentDetails(
-        uint256 loanId,
-        uint256 _initialMonthlyPayment,
-        string memory _firstPaymentDate,
-        string memory _maturityDate,
-        string memory _paymentAddress,
-        uint256 _gracePeriod,
-        uint256 _lateChargePercentage,
-        string memory _index,
-        uint256 _margin,
-        bool _allowsPrepayment,
-        uint256 _defaultNoticePeriod
-    ) public onlyLender {
-        paymentDetailsMap[loanId] = PaymentDetails(
-            _initialMonthlyPayment,
-            _firstPaymentDate,
-            _maturityDate,
-            _paymentAddress,
-            _gracePeriod,
-            _lateChargePercentage,
-            _index,
-            _margin,
-            _allowsPrepayment,
-            _defaultNoticePeriod
-        );
-
-        emit PaymentDetailsUpdated(loanId);
-    }
-
-    // Function to store General Details
-    function setGeneralDetails(
-        uint256 loanId,
-        string memory _noteDate,
-        string memory _city,
-        string memory _state,
-        string memory _propertyAddress,
-        uint256 _principalAmount,
-        string memory _lenderName,
-        uint256 _initialInterestRate,
-        string memory _changeDate,
-        uint256 _maxRateOnFirstChange,
-        uint256 _minRateOnFirstChange
-        // uint256 _maxOverallRate
-        // uint256 _minOverallRate
-    )
-        public
-        onlyLender
-    {
-        generalDetailsMap[loanId] = GeneralDetails(
-            _noteDate,
-            _city,
-            _state,
-            _propertyAddress,
-            _principalAmount,
-            _lenderName,
-            _initialInterestRate,
-            _changeDate,
-            _maxRateOnFirstChange,
-            _minRateOnFirstChange
-            // _maxOverallRate
-            // _minOverallRate
-        );
-
-        emit GeneralDetailsUpdated(loanId);
-    }
-
-    // Function to retrieve both PaymentDetails and GeneralDetails for a loanId
-    function getPayPlusGeneralDetails(uint256 loanId)
-        public
-        view
-        onlyLender
-        returns (PaymentDetails memory, GeneralDetails memory)
-    {
-        return (paymentDetailsMap[loanId], generalDetailsMap[loanId]);
     }
 
     // Function: Fund the contract
@@ -216,13 +103,18 @@ contract MultiLoanContract {
         emit LoanFunded(_borrower, loan.loanAmount);
     }
 
-    function takeOutContractFunds() public onlyLender {
+    //take out the funds from contract
+    function takeOutContractFunds(uint256 _amount) public onlyLender {
         require(address(this).balance > 0, "No funds are available");
-        payable(lender).transfer(address(this).balance);
+        if (_amount > 0) {
+            payable(lender).transfer(_amount);
+        } else {
+            payable(lender).transfer(address(this).balance);
+        }
     }
 
     // Function: Check the contract balance
-    function checkBalanceOfSmartContract()
+    function getBalanceOfSmartContract()
         public
         view
         onlyLender
@@ -262,18 +154,20 @@ contract MultiLoanContract {
         emit panaltyRatechanged(msg.sender, _penaltyRate);
     }
 
-//--------------------------------------------------------below are allow for borrow or lender 
+    //--------------------------------------------------------below are allow for borrow or lender
     // Function: Request a loan
-    function requestLoan(
+function requestLoan(
         uint256 _loanAmount,
         uint256 _interestRate,
-        uint256 _repaymentDurationInMonths
+        uint256 _repaymentDurationInMonths,
+        uint256 _age // Added age parameter
     ) external {
         require(msg.sender != lender, "Lender cannot request a loan");
         require(
             loans[msg.sender].loanAmount == 0,
             "Loan already exists for this borrower"
         );
+        require(_age >= 18, "Borrower must be at least 18 years old"); // Age check
 
         uint256 totalRepayment = _loanAmount +
             (_loanAmount * _interestRate) /
@@ -288,9 +182,10 @@ contract MultiLoanContract {
             emiAmount: emiAmount,
             emiCount: _repaymentDurationInMonths,
             emisPaid: 0,
-            nextEmiDueDate: block.timestamp + 30 days, //30 days in sec
+            nextEmiDueDate: block.timestamp + 30 days,
             isLoanFunded: false,
-            isLoanRepaid: false
+            isLoanRepaid: false,
+            age: _age // Store age in the struct
         });
 
         requestedBorrowers.push(msg.sender);
@@ -386,6 +281,18 @@ contract MultiLoanContract {
     function isRepaymentOverdue(address _borrower) public view returns (bool) {
         Loan storage loan = loans[_borrower];
         return block.timestamp > loan.nextEmiDueDate && !loan.isLoanRepaid;
+    }
+
+//funciton to check if loan is repaid 
+    function getIsLoanRepaid() public view returns (bool) {
+        Loan storage loan = loans[msg.sender];
+        return loan.isLoanRepaid;
+    }
+
+//function to check if loan is funded 
+    function getIsLoanFunded() public view returns (bool) {
+        Loan storage loan = loans[msg.sender];
+        return loan.isLoanFunded;
     }
 
     // Function: Take out all contract funds
