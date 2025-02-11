@@ -20,7 +20,7 @@ const Admin = () => {
     }
     useEffect(() => {
       if (typeof window !== 'undefined') {
-        const owner = localStorage.getItem('admin');
+        const owner = localStorage.getItem('owner');
         // console.log(storedData,"admin");
         setOwnerAdd(owner);
       }
