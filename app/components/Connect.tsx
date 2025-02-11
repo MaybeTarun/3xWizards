@@ -20,8 +20,6 @@ const Connect: React.FC = () => {
   const { contract, setContract, walletAddress, setWalletAddress } =
     useContext(MyContext);
 
-  const [isLoanRepaid, setIsLoanRepaid] = useState<boolean>();
-  const [isLoanFunded, setisLoanFunded] = useState<boolean>();
 
   const connectminewallet = useCallback(async (): Promise<void> => {
     try {
@@ -48,10 +46,6 @@ const Connect: React.FC = () => {
         setContract(contractInstance);
      console.log(contractInstance);
         const owner: string = await contractInstance.lender();
-        const isLoanRepaid: boolean = await contractInstance.isLoanRepaid();
-        const isLoanFunded: boolean = await contractInstance.isLoanFunded();
-        setIsLoanRepaid(isLoanRepaid);
-        setisLoanFunded(isLoanFunded);
         localStorage.setItem('owner',owner);
         // toast.success("Connected to contract and retrieved owner address.");
   
@@ -160,12 +154,6 @@ useEffect(() => {
     getCurrentWalletConnected();
     addWalletListener();
   }, [getCurrentWalletConnected, addWalletListener]);
-
-useEffect(() => {
-  if (isLoanRepaid !== undefined && isLoanFunded !== undefined) {
-    console.log(`Loan Repaid: ${isLoanRepaid}, Loan Funded: ${isLoanFunded}`);
-  }
-}, [isLoanRepaid, isLoanFunded]);
 
   return (
     <>
